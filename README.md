@@ -1,7 +1,7 @@
 # elm-mouse-rays
 Example for using Elm lang to draw rays from a fixed point to the mouse location. [For Beginners]
 
-[See the demo](http://stormont.github.io/elm-mouse-rays/demo.html)
+[See the demo](http://stormont.github.io/elm-mouse-rays/demo.html) (Start a ray by clicking the mouse.)
 
 To run it locally:
 
