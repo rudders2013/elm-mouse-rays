@@ -29,8 +29,8 @@ getModelPoints model =
     FinishedPath ps'      -> ps'  --   ... for the remaining cases.
 
 
-updateInactivePath : (Point,Point) -> Int -> List Point -> Model
-updateInactivePath (p,movePoint) len path =
+updateInactivePath : Int -> List Point -> Model
+updateInactivePath len path =
   if len < maxPathLength    -- Check if the path is currently incomplete.
     then FinishedPath path  -- If a path is defined, return a finished representation.
     else NoPath             -- If no points are defined, we have no path.
@@ -39,17 +39,17 @@ updateInactivePath (p,movePoint) len path =
 update : (Point,Point) -> Model -> Model
 update (p,movePoint) model =
   let
-    isClick = p == movePoint  -- Check if this is a mouse click (defined by our mouse
-                              --   position being equal to our last click).
-    ps = getModelPoints model                       -- Get the active path points.
-    len = List.length ps                            -- Get the length of the path.
-    path = if isClick                               -- If this is a mouse click...
-            then p :: ps                            --   ... extend the path, otherwise...
-            else ps                                 --   ... use the existing path.
+    isClick = p == movePoint             -- Check if this is a mouse click (defined by our mouse
+                                         --   position being equal to our last click).
+    ps = getModelPoints model            -- Get the active path points.
+    len = List.length ps                 -- Get the length of the path.
+    path = if isClick                    -- If this is a mouse click...
+            then p :: ps                 --   ... extend the path, otherwise...
+            else ps                      --   ... use the existing path.
   in
-    if len < maxPathLength                          -- Check if the path is currently incomplete.
-      then ActivePath (path, movePoint)             -- If incomplete, update the current path.
-      else updateInactivePath (p,movePoint) len ps  -- Otherwise, update the completed path.
+    if len < maxPathLength               -- Check if the path is currently incomplete.
+      then ActivePath (path, movePoint)  -- If incomplete, update the current path.
+      else updateInactivePath len ps     -- Otherwise, update the completed path.
 
 
 -- VIEW

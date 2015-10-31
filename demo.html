@@ -2036,38 +2036,28 @@ Elm.Main.make = function (_elm) {
    };
    var NoPath = {ctor: "NoPath"};
    var maxPathLength = 2;
-   var updateInactivePath = F3(function (_v24,
-   len,
+   var updateInactivePath = F2(function (len,
    path) {
-      return function () {
-         switch (_v24.ctor)
-         {case "_Tuple2":
-            return _U.cmp(len,
-              maxPathLength) < 0 ? FinishedPath(path) : NoPath;}
-         _U.badCase($moduleName,
-         "between lines 34 and 36");
-      }();
+      return _U.cmp(len,
+      maxPathLength) < 0 ? FinishedPath(path) : NoPath;
    });
-   var update = F2(function (_v28,
+   var update = F2(function (_v24,
    model) {
       return function () {
-         switch (_v28.ctor)
+         switch (_v24.ctor)
          {case "_Tuple2":
             return function () {
                  var ps = getModelPoints(model);
                  var len = $List.length(ps);
-                 var isClick = _U.eq(_v28._0,
-                 _v28._1);
+                 var isClick = _U.eq(_v24._0,
+                 _v24._1);
                  var path = isClick ? A2($List._op["::"],
-                 _v28._0,
+                 _v24._0,
                  ps) : ps;
                  return _U.cmp(len,
                  maxPathLength) < 0 ? ActivePath({ctor: "_Tuple2"
                                                  ,_0: path
-                                                 ,_1: _v28._1}) : A3(updateInactivePath,
-                 {ctor: "_Tuple2"
-                 ,_0: _v28._0
-                 ,_1: _v28._1},
+                                                 ,_1: _v24._1}) : A2(updateInactivePath,
                  len,
                  ps);
               }();}
