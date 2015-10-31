@@ -24,7 +24,7 @@ getModelPoints : Model -> List Point
 getModelPoints model =
   case model of
     NoPath              -> []   -- If no path is active, return an empty list.
-    ActivePath (ps', _) -> ps'  -- Otherwise, retrieve the defined points...
+    ActivePath (ps', _) -> ps'  -- Otherwise, retrieve the defined points.
 
 
 update : (Point,Point) -> Model -> Model
@@ -40,7 +40,7 @@ update (p,movePoint) model =
   in
     if len < maxPathLength               -- Check if the path is currently incomplete.
       then ActivePath (path, movePoint)  -- If incomplete, update the current path.
-      else NoPath                        -- Otherwise, update the completed path.
+      else NoPath                        -- Otherwise, reset the path.
 
 
 -- VIEW
