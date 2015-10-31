@@ -1946,7 +1946,7 @@ Elm.Main.make = function (_elm) {
                          ps);
                        case "Nothing": return ps;}
                     _U.badCase($moduleName,
-                    "between lines 77 and 81");
+                    "between lines 70 and 74");
                  }();
                  return $Graphics$Collage.move({ctor: "_Tuple2"
                                                ,_0: (0 - $Basics.toFloat(_v0._0)) / 2
@@ -1959,13 +1959,13 @@ Elm.Main.make = function (_elm) {
                                  ,_0: $Basics.toFloat(_v6._0)
                                  ,_1: $Basics.toFloat(0 - _v6._1)};}
                        _U.badCase($moduleName,
-                       "on line 82, column 26 to 47");
+                       "on line 75, column 26 to 47");
                     }();
                  },
                  points))));
               }();}
          _U.badCase($moduleName,
-         "between lines 76 and 86");
+         "between lines 69 and 79");
       }();
    });
    var view = F2(function (_v10,
@@ -2004,25 +2004,12 @@ Elm.Main.make = function (_elm) {
                       _v10._1,
                       _L.fromArray([]));}
                  _U.badCase($moduleName,
-                 "between lines 92 and 100");
+                 "between lines 85 and 93");
               }();}
          _U.badCase($moduleName,
-         "between lines 92 and 100");
+         "between lines 85 and 93");
       }();
    });
-   var updatePath = function (points) {
-      return function () {
-         var _v19 = $List.head($List.reverse(points));
-         switch (_v19.ctor)
-         {case "Just":
-            return A2($List._op["::"],
-              _v19._0,
-              points);
-            case "Nothing": return points;}
-         _U.badCase($moduleName,
-         "between lines 34 and 36");
-      }();
-   };
    var getModelPoints = function (model) {
       return function () {
          switch (model.ctor)
@@ -2049,43 +2036,43 @@ Elm.Main.make = function (_elm) {
    };
    var NoPath = {ctor: "NoPath"};
    var maxPathLength = 2;
-   var updateInactivePath = F3(function (_v26,
+   var updateInactivePath = F3(function (_v24,
    len,
    path) {
       return function () {
-         switch (_v26.ctor)
+         switch (_v24.ctor)
          {case "_Tuple2":
             return _U.cmp(len,
-              maxPathLength) < 0 ? FinishedPath(updatePath(path)) : NoPath;}
+              maxPathLength) < 0 ? FinishedPath(path) : NoPath;}
          _U.badCase($moduleName,
-         "between lines 41 and 43");
+         "between lines 34 and 36");
       }();
    });
-   var update = F2(function (_v30,
+   var update = F2(function (_v28,
    model) {
       return function () {
-         switch (_v30.ctor)
+         switch (_v28.ctor)
          {case "_Tuple2":
             return function () {
                  var ps = getModelPoints(model);
                  var len = $List.length(ps);
-                 var isClick = _U.eq(_v30._0,
-                 _v30._1);
+                 var isClick = _U.eq(_v28._0,
+                 _v28._1);
                  var path = isClick ? A2($List._op["::"],
-                 _v30._0,
+                 _v28._0,
                  ps) : ps;
                  return _U.cmp(len,
                  maxPathLength) < 0 ? ActivePath({ctor: "_Tuple2"
                                                  ,_0: path
-                                                 ,_1: _v30._1}) : A3(updateInactivePath,
+                                                 ,_1: _v28._1}) : A3(updateInactivePath,
                  {ctor: "_Tuple2"
-                 ,_0: _v30._0
-                 ,_1: _v30._1},
+                 ,_0: _v28._0
+                 ,_1: _v28._1},
                  len,
                  ps);
               }();}
          _U.badCase($moduleName,
-         "between lines 48 and 59");
+         "between lines 41 and 52");
       }();
    });
    var mousePositions = A3($Signal.foldp,
@@ -2102,7 +2089,6 @@ Elm.Main.make = function (_elm) {
                       ,ActivePath: ActivePath
                       ,FinishedPath: FinishedPath
                       ,getModelPoints: getModelPoints
-                      ,updatePath: updatePath
                       ,updateInactivePath: updateInactivePath
                       ,update: update
                       ,lineStyle: lineStyle

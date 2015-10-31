@@ -29,18 +29,11 @@ getModelPoints model =
     FinishedPath ps'      -> ps'  --   ... for the remaining cases.
 
 
-updatePath : List Point -> List Point
-updatePath points =
-  case (List.head <| List.reverse points) of  -- Get the latest point and...
-    Nothing -> points                         --   ... if none exists, we have nothing to update, otherwise...
-    Just h  -> h :: points                    --   ... add the point to the existing points.
-
-
 updateInactivePath : (Point,Point) -> Int -> List Point -> Model
 updateInactivePath (p,movePoint) len path =
-  if len < maxPathLength                             -- Check if the path is currently incomplete.
-    then FinishedPath (updatePath path)              -- If a path is defined, return a finished representation.
-    else NoPath                                      -- If no points are defined, we have no path.
+  if len < maxPathLength    -- Check if the path is currently incomplete.
+    then FinishedPath path  -- If a path is defined, return a finished representation.
+    else NoPath             -- If no points are defined, we have no path.
 
 
 update : (Point,Point) -> Model -> Model
