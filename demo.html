@@ -1946,7 +1946,7 @@ Elm.Main.make = function (_elm) {
                          ps);
                        case "Nothing": return ps;}
                     _U.badCase($moduleName,
-                    "between lines 70 and 74");
+                    "between lines 73 and 77");
                  }();
                  return $Graphics$Collage.move({ctor: "_Tuple2"
                                                ,_0: (0 - $Basics.toFloat(_v0._0)) / 2
@@ -1959,13 +1959,13 @@ Elm.Main.make = function (_elm) {
                                  ,_0: $Basics.toFloat(_v6._0)
                                  ,_1: $Basics.toFloat(0 - _v6._1)};}
                        _U.badCase($moduleName,
-                       "on line 75, column 26 to 47");
+                       "on line 78, column 26 to 47");
                     }();
                  },
                  points))));
               }();}
          _U.badCase($moduleName,
-         "between lines 69 and 79");
+         "between lines 72 and 82");
       }();
    });
    var view = F2(function (_v10,
@@ -2004,10 +2004,10 @@ Elm.Main.make = function (_elm) {
                       _v10._1,
                       _L.fromArray([]));}
                  _U.badCase($moduleName,
-                 "between lines 85 and 93");
+                 "between lines 88 and 96");
               }();}
          _U.badCase($moduleName,
-         "between lines 85 and 93");
+         "between lines 88 and 96");
       }();
    });
    var getModelPoints = function (model) {
@@ -2036,11 +2036,13 @@ Elm.Main.make = function (_elm) {
    };
    var NoPath = {ctor: "NoPath"};
    var maxPathLength = 2;
-   var updateInactivePath = F2(function (len,
-   path) {
-      return _U.cmp(len,
-      maxPathLength) < 0 ? FinishedPath(path) : NoPath;
-   });
+   var updateInactivePath = function (path) {
+      return function () {
+         var len = $List.length(path);
+         return _U.cmp(len,
+         maxPathLength) < 0 ? FinishedPath(path) : NoPath;
+      }();
+   };
    var update = F2(function (_v24,
    model) {
       return function () {
@@ -2057,12 +2059,10 @@ Elm.Main.make = function (_elm) {
                  return _U.cmp(len,
                  maxPathLength) < 0 ? ActivePath({ctor: "_Tuple2"
                                                  ,_0: path
-                                                 ,_1: _v24._1}) : A2(updateInactivePath,
-                 len,
-                 ps);
+                                                 ,_1: _v24._1}) : updateInactivePath(ps);
               }();}
          _U.badCase($moduleName,
-         "between lines 41 and 52");
+         "between lines 44 and 55");
       }();
    });
    var mousePositions = A3($Signal.foldp,

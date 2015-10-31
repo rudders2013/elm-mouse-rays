@@ -29,11 +29,14 @@ getModelPoints model =
     FinishedPath ps'      -> ps'  --   ... for the remaining cases.
 
 
-updateInactivePath : Int -> List Point -> Model
-updateInactivePath len path =
-  if len < maxPathLength    -- Check if the path is currently incomplete.
-    then FinishedPath path  -- If a path is defined, return a finished representation.
-    else NoPath             -- If no points are defined, we have no path.
+updateInactivePath : List Point -> Model
+updateInactivePath path =
+  let
+    len = List.length path    -- Get the length of the path.
+  in
+    if len < maxPathLength    -- Check if the path is currently incomplete.
+      then FinishedPath path  -- If a path is defined, return a finished representation.
+      else NoPath             -- If no points are defined, we have no path.
 
 
 update : (Point,Point) -> Model -> Model
@@ -49,7 +52,7 @@ update (p,movePoint) model =
   in
     if len < maxPathLength               -- Check if the path is currently incomplete.
       then ActivePath (path, movePoint)  -- If incomplete, update the current path.
-      else updateInactivePath len ps     -- Otherwise, update the completed path.
+      else updateInactivePath ps         -- Otherwise, update the completed path.
 
 
 -- VIEW
