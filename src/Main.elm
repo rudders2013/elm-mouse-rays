@@ -16,7 +16,6 @@ type alias MouseY = Int
 type alias Point = (MouseX, MouseY)            -- Mouse position (x,y).
 type Model = NoPath                            -- No current path.
            | ActivePath   (List Point, Point)  -- An active path, plus an actively moving position.
-           | FinishedPath (List Point)         -- A completed (inactive) path.
 
 
 -- UPDATE
@@ -24,19 +23,8 @@ type Model = NoPath                            -- No current path.
 getModelPoints : Model -> List Point
 getModelPoints model =
   case model of
-    NoPath                -> []   -- If no path is active, return an empty list.
-    ActivePath   (ps', _) -> ps'  -- Otherwise, retrieve the defined points...
-    FinishedPath ps'      -> ps'  --   ... for the remaining cases.
-
-
-updateInactivePath : List Point -> Model
-updateInactivePath path =
-  let
-    len = List.length path    -- Get the length of the path.
-  in
-    if len < maxPathLength    -- Check if the path is currently incomplete.
-      then FinishedPath path  -- If a path is defined, return a finished representation.
-      else NoPath             -- If no points are defined, we have no path.
+    NoPath              -> []   -- If no path is active, return an empty list.
+    ActivePath (ps', _) -> ps'  -- Otherwise, retrieve the defined points...
 
 
 update : (Point,Point) -> Model -> Model
@@ -52,7 +40,7 @@ update (p,movePoint) model =
   in
     if len < maxPathLength               -- Check if the path is currently incomplete.
       then ActivePath (path, movePoint)  -- If incomplete, update the current path.
-      else updateInactivePath ps         -- Otherwise, update the completed path.
+      else NoPath                        -- Otherwise, update the completed path.
 
 
 -- VIEW
@@ -90,9 +78,6 @@ view (w,h) model =
       collage w h []                                      --   ... build an empty canvas.
     ActivePath (ps, p) ->                                 -- If an actively moving path is defined...
       collage w h [ drawLineSegments (w,h) ps (Just p) ]  --   ... draw the line segments, with the
-                                                          --   active motion.
-    FinishedPath ps    ->                                 -- If a completed path is defined...
-      collage w h [ drawLineSegments (w,h) ps Nothing ]   --   ... draw the line segments, with no
                                                           --   active motion.
 
 
