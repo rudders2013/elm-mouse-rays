@@ -55,30 +55,24 @@ lineStyle =
   }
 
 
-drawLineSegments : (Int,Int) -> List Point -> Maybe Point -> Form
-drawLineSegments (w,h) ps maybeMove =
-  let
-    points = case maybeMove of                           -- Check if a new move has occurred.
-              Nothing -> ps                              -- If not, return the previous points.
-              Just p  -> p :: ps                         -- Otherwise, prepend and return the
-                                                         --   new position.
-  in
-    List.map (\(x,y) -> (toFloat x, toFloat -y)) points  -- Convert the mouse points to
-                                                         --   "model" coordinates.
-      |> path                                            -- Build a path from the points.
-      |> traced lineStyle                                -- Trace the line with defined form.
-      |> move (-(toFloat w) / 2, (toFloat h) / 2)        -- Move drawing from middle to upper
-                                                         --   left ("screen" coordinates).
+drawLineSegments : (Int,Int) -> List Point -> Form
+drawLineSegments (w,h) points =
+  List.map (\(x,y) -> (toFloat x, toFloat -y)) points  -- Convert the mouse points to
+                                                       --   "model" coordinates.
+    |> path                                            -- Build a path from the points.
+    |> traced lineStyle                                -- Trace the line with defined form.
+    |> move (-(toFloat w) / 2, (toFloat h) / 2)        -- Move drawing from middle to upper
+                                                       --   left ("screen" coordinates).
 
 
 view : (Int,Int) -> Model -> Element
 view (w,h) model =
   case model of
-    NoPath             ->                                 -- If no path is currently defined...
-      collage w h []                                      --   ... build an empty canvas.
-    ActivePath (ps, p) ->                                 -- If an actively moving path is defined...
-      collage w h [ drawLineSegments (w,h) ps (Just p) ]  --   ... draw the line segments, with the
-                                                          --   active motion.
+    NoPath             ->                               -- If no path is currently defined...
+      collage w h []                                    --   ... build an empty canvas.
+    ActivePath (ps, p) ->                               -- If an actively moving path is defined...
+      collage w h [ drawLineSegments (w,h) (p :: ps) ]  --   ... draw the line segments, with the
+                                                        --   active motion.
 
 
 -- SIGNALS
